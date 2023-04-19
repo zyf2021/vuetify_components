@@ -1,26 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+      
+  <v-app>
+    <v-container>
+      <my-navbar :items = "items"/>
+      <v-main>
+        <router-view></router-view>
+      </v-main>
+    </v-container>
+    <MyFooterVue/>
+  </v-app>
 </template>
-
+ 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import MyFooterVue from './components/UI/MyFooter.vue' 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: {MyFooterVue},
+  data() {
+      return {
+          items: [
+            {title: 'ГЛАВНАЯ', route:'/'},
+            {title: 'НОВОСТИ', route:'/news'},
+            {title: 'point 3', route:'/'},
+            {title: 'О НАС', route:'/about'}
+        ]
+      }
+    }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 0px;
+  }
+  v-container {
+    margin: 0;
+  }
 </style>
