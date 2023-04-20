@@ -8,9 +8,13 @@ import router from '@/router/router'
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+//import * as components from 'vuetify/components'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-
+import { VDataTable } from 'vuetify/labs/VDataTable'
+//import { VTabs } from 'vuetify/components/VTabs'
+//import { VDivider } from 'vuetify/components/VDivider'
+//import { VWindow } from 'vuetify/components/VWindow'
 
 //Icons
 //import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -25,7 +29,13 @@ componentsUI.forEach(component =>{
 })
 
 const vuetify = createVuetify({
-  components,
+  components: {
+    ...components,
+    VDataTable,
+    /*VTabs,
+    VDivider,
+    VWindow*/
+  },
   directives,
   theme: {
     themes: {

@@ -5,6 +5,12 @@ import AdminPanel from "@/pages/AdminPanel.vue"
 import AboutPage from "@/pages/AboutPage.vue"
 import NewsPage from "@/pages/NewsPage.vue"
 import NewsPageId from "@/pages/NewsPageId.vue"
+import OrderClientPage from '@/pages/OrderClientPage';
+import OrderManagerPage from '@/pages/OrderManagerPage';
+import OrderMasterPage from '@/pages/OrderMasterPage';
+import SparePage from '@/pages/SparePage';
+import ProfileUserPage from '@/pages/ProfileUserPage';
+
 
 const routes = [
     {
@@ -28,6 +34,26 @@ const routes = [
         path: '/news/:id',
         name: 'newsid',
         component: NewsPageId
+    },
+    {
+        path: '/order/client',
+        component: OrderClientPage
+    },
+    {
+        path: '/order/manager/:id',
+        component: OrderManagerPage
+    },
+    {
+        path: '/order/master/:id',
+        component: OrderMasterPage
+    },    
+    {
+        path: '/spare',
+        component: SparePage
+    },  
+    {
+        path: '/profile',
+        component: ProfileUserPage
     },
 ]
 

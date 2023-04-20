@@ -6,12 +6,13 @@
             <v-col 
                 cols="12"
                 sm="12">
-                <my-news-id-card
-                    :newsId = "post"
-                ></my-news-id-card>
+            <my-news-id-card
+                :newsId = "post"
+                @create="createComment"
+            ></my-news-id-card>
+
             </v-col>
-        </v-row>
-        <v-row>
+
             <v-col 
                 cols="12"
                 sm="12"
@@ -29,9 +30,13 @@
 
 <script>
 import axios from 'axios'
+//import FormComment from '@/components/FormComment.vue'
+
 export default {
+  //components: {FormComment},
   data(){
     return {
+        dialogVisible: true,
       post: {},
       comments: []
     }
@@ -58,7 +63,12 @@ export default {
       } catch(e) {
         alert(e)
       }
-    }
+    },
+    createComment(comment){
+            console.log(comment)
+            comment.id = this.comments.length
+            this.comments.push(comment)
+        },
   },
   mounted() {
     this.fetchPost()

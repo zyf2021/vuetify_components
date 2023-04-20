@@ -21,7 +21,11 @@ export default {
           items: [
             {title: 'ГЛАВНАЯ', route:'/'},
             {title: 'НОВОСТИ', route:'/news'},
-            {title: 'point 3', route:'/'},
+            {title: 'Заказы Клиента', route:'/order/client'},
+            {title: 'Заказы Менеджера', route:'/order/manager/:id'},
+            {title: 'Заказы Мастера', route:'/order/master/:id'},
+            {title: 'Админпанель', route:'/admin'},
+            {title: 'Запчасти', route:'/spare'},
             {title: 'О НАС', route:'/about'}
         ]
       }

@@ -30,7 +30,7 @@ export default {
         right: 0;
         left: 0;
         background: rgba(0, 0, 0, 0.5);
-        position: fixed;
+        position: sticky;
         display: flex;
     }
     .dialog__content {

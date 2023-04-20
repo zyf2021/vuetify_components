@@ -11,10 +11,33 @@
       <span class="text-accent font-weight-regular">Компьютерная помощь</span>
     </v-app-bar-title>
     <v-spacer></v-spacer>
-        <my-nav-btn>Поиск</my-nav-btn>
-        <my-nav-btn>Профиль</my-nav-btn>
-        <my-nav-btn>Уведомления</my-nav-btn>
+        <my-nav-btn
+          @click="$router.push('/search')"
+        >Поиск</my-nav-btn>
+        <my-nav-btn
+          @click="$router.push('/profile')"
+        >Профиль</my-nav-btn>
+        <my-nav-btn>
+          Уведомления
+          <v-badge v-if="badge" dot color="success">
+            <v-icon>mdi-home-outline</v-icon>
+          </v-badge>
+          <v-menu activator="parent">
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>
+                  <my-allerts
+                    v-model="allert"
+                    :text="text"
+                  ></my-allerts>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </my-nav-btn>
+        
   </v-app-bar>
+        
   <v-navigation-drawer 
         permanent
         image="https://picsum.photos/1920/1080?random"
@@ -39,7 +62,9 @@
 </template>
 
 <script>
+import MyAllerts from './MyAllerts.vue'
 export default {
+  components: { MyAllerts },
     name: "my-navbar",
     props: {
       items: {
@@ -49,6 +74,9 @@ export default {
     data() {
       return {
         drawer: false,
+        allert:true,
+        badge:true,
+        text:'Новый текст'
       }
     }
 }
