@@ -10,6 +10,7 @@ import OrderManagerPage from '@/pages/OrderManagerPage';
 import OrderMasterPage from '@/pages/OrderMasterPage';
 import SparePage from '@/pages/SparePage';
 import ProfileUserPage from '@/pages/ProfileUserPage';
+import ThemesNewsAdmin from '@/pages/ThemesNewsAdmin';
 
 
 const routes = [
@@ -54,6 +55,10 @@ const routes = [
     {
         path: '/profile',
         component: ProfileUserPage
+    },
+    {
+        path: '/themes_news',
+        component: ThemesNewsAdmin
     },
 ]
 
