@@ -11,6 +11,7 @@ import OrderMasterPage from '@/pages/OrderMasterPage';
 import SparePage from '@/pages/SparePage';
 import ProfileUserPage from '@/pages/ProfileUserPage';
 import ThemesNewsAdmin from '@/pages/ThemesNewsAdmin';
+import ManagerViewsUsers from '@/pages/ManagerViewsUsers';
 
 
 const routes = [
@@ -41,7 +42,7 @@ const routes = [
         component: OrderClientPage
     },
     {
-        path: '/order/manager/:id',
+        path: '/order/manager',
         component: OrderManagerPage
     },
     {
@@ -57,8 +58,12 @@ const routes = [
         component: ProfileUserPage
     },
     {
-        path: '/themes_news',
+        path: '/admin/themes_news',
         component: ThemesNewsAdmin
+    },
+    {
+        path: '/manager/users',
+        component: ManagerViewsUsers
     },
 ]
 

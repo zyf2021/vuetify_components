@@ -20,8 +20,10 @@
                     :value="item"
                     active-color="primary"
                     color="seconadry"
-                >
-                    <v-list-item-title>{{ item.text }}</v-list-item-title>
+                >  
+                    <v-btn :to="item.route" flat width="100%" class="ma-0">
+                        {{ item.text }}
+                    </v-btn>
                 </v-list-item>
                 </v-list>
             </v-card>
@@ -68,11 +70,12 @@
                                 color="warning"
                                 theme="dark"
                             >
+                                <v-card-subtitle>Запчастей</v-card-subtitle>
                                 <v-card-title class="text-h5">
-                                Unlimited music now
+                                    10235
                                 </v-card-title>
 
-                                <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
+                                
 
                                 <v-card-actions>
                                 </v-card-actions>
@@ -107,6 +110,7 @@ export default {
                 { text: 'ЗАПЧАСТИ', icon: 'mdi-account' },
                 { text: 'ЗАКАЗЫ', icon: 'mdi-flag' },
                 { text: 'ПОЛЬЗОВАТЕЛИ', icon: 'mdi-flag' },
+                { text: 'ТЕМЫ НОВОСТЕЙ', icon: 'mdi-flag', route: '/admin/themes_news' },
             ],
         }
     }

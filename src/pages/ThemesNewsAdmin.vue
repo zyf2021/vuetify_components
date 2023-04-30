@@ -5,15 +5,24 @@
         <v-data-table
             :headers="headers"
             :items="themes"
-            :hide-default-footer="true"
+            item-value="name"
         >
+            <template v-slot:[`item.id`]="{ item }">
+            <v-chip color="accent">
+                {{ item.raw.id }}
+            </v-chip>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
-                <v-btn small class="mr-2" @click="editTheme(item.id)">mdi-pencil</v-btn>
-                <v-btn small @click="deleteTheme(item.id)">mdi-delete</v-btn>
+                <v-btn flat class="mr-2" size="small" color="accent" @click="editTheme(item.raw.id)">
+                    <span dark class="text-h6">&#9998;</span>
+                </v-btn>
+                <v-btn flat color="error" size="small" @click="deleteTheme(item.raw.id)">
+                    <span dark class="text-h6">&#128465;</span>
+                </v-btn>
             </template>
         </v-data-table>
         <v-card-actions v-if="themes.length > 0">
-          <v-btn small color="error" @click="removeAllThemes">
+          <v-btn @click="removeAllThemes">
             Удалить все
           </v-btn>
         </v-card-actions>
@@ -30,9 +39,9 @@ export default {
             themes: [],
             title: "",
             headers: [
-                {text: "ID", sortable: true, value:"id"},
-                {text: "Название темы", sortable: true, value:"name"},
-                {text: "Actions", value: "actions", sortable: false },
+                {title: "ID", align: "start", sortable: true, value:"id", key:"id"},
+                {title: "Название темы", sortable: true, value:"name", key:"name"},
+                {title: "Actions", sortable: false, value: "actions", key: 'actions' },
             ]
         }
     },
@@ -67,7 +76,8 @@ export default {
             })
         },
         editTheme(id){
-            this.$router.push({ name: "tutorial-details", params: { id: id } });
+            console.log(id)
+            this.$router.push({ path: `/update_theme/${id}` });
         },
         deleteTheme(id){
             ThemesNewsService.delete(id)
@@ -88,5 +98,4 @@ export default {
 </script>
 
 <style>
-
 </style>
