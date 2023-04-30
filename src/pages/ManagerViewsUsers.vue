@@ -49,6 +49,7 @@ export default {
                 {title: "Пол", sortable: false, value: "gender", key: 'gender' },
                 {title: "Email", sortable: false, value: "email", key: 'email' },
                 {title: "Роль", sortable: false, value: "name", key: 'name' },
+                {title: "Actions", sortable: false, value: "actions", key: 'actions' },
             ]
         }
     },
@@ -57,6 +58,7 @@ export default {
             UsersServices.getAllClients()
             .then((response) => {
                 this.clients = response.data
+                console.log(this.clients)
             })
             .catch((e) => {
                 console.log(e)
