@@ -41,7 +41,7 @@ export default {
             headers: [
                 {title: "ID", align: "start", sortable: true, value:"id", key:"id"},
                 {title: "Название темы", sortable: true, value:"name", key:"name"},
-                {title: "Actions", sortable: false, value: "actions", key: 'actions' },
+                {text: "Actions", sortable: false, value: "actions", key: 'actions' },
             ]
         }
     },

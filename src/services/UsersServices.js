@@ -14,12 +14,14 @@ class UsersService {
     return http.get("/users/clients");
   }
 
-  getAll() {
-    return http.get("/users");
-  }
+
 
   get(id) {
     return http.get(`/users/${id}`);
+  }
+
+  getAll() {
+    return http.get("/users");
   }
 
   create(data) {

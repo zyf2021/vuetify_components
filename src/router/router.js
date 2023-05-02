@@ -12,6 +12,7 @@ import SparePage from '@/pages/SparePage';
 import ProfileUserPage from '@/pages/ProfileUserPage';
 import ThemesNewsAdmin from '@/pages/ThemesNewsAdmin';
 import ManagerViewsUsers from '@/pages/ManagerViewsUsers';
+import UpdateApplicationManager from '@/pages/UpdateApplicationManager';
 
 
 const routes = [
@@ -44,6 +45,10 @@ const routes = [
     {
         path: '/order/manager',
         component: OrderManagerPage
+    },
+    {
+        path: '/order/manager/:id',
+        component: UpdateApplicationManager
     },
     {
         path: '/order/master/:id',

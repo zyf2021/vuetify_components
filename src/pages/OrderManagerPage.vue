@@ -53,6 +53,9 @@
           :header="header_table"
           :headers="headers"
           :items="applications"
+          @update="updateApplication"
+          @delete="deleteApplication"
+
         ></MyUserTable>
       </v-col>
     </v-row>
@@ -76,8 +79,12 @@ export default {
         {title: 'ID', key:'id', align: "start", sortable: true},
         {title: 'Дата открытия', key:'date_open', sortable: true},
         {title: 'Дата закрытия', key:'date_close', sortable: true},
-        {title: 'Статус заявки', key:'id_status_applic', sortable: true},
-        { title: 'Действия', key: 'actions', sortable: false },
+        {title: 'Статус заявки', key:'status', sortable: true},
+        {title: 'Класс проблемы', key:'class', sortable: true},
+        {title: 'Сложность', key:'difficult', sortable: true},
+        {title: 'Стоимость', key:'base_price', sortable: true},
+        {title: 'Время', key:'normative_time', sortable: true},
+        {title: 'Действия', key: 'actions', sortable: false },
       ],
       newApllicationData: {
         select_user: {last_name:'', first_name:'', middle_name:''},
@@ -115,9 +122,9 @@ export default {
     },
     getApplications(){
       ApplicationsService.getAll()
-      .then((responce) => {
-        console.log(responce.data)
-        this.applications = responce.data//.map(this.getDisplayApplic)
+      .then((response) => {
+        console.log(response.data)
+        this.applications = response.data//.map(this.getDisplayApplic)
         console.log(this.applications)
       })
       .catch((e) => {
@@ -138,15 +145,15 @@ export default {
 
     getClients() {
       UsersService.getAllClients()
-      .then((responce) => {
-        this.users = responce.data
+      .then((response) => {
+        this.users = response.data
         console.log(this.users)
       })
     },
     getClassesProblem(){
       ClassesProblemService.getAll()
-      .then((responce) => {
-        this.problems = responce.data
+      .then((response) => {
+        this.problems = response.data
         console.log(this.problems)
       })
       .catch((e) => {
@@ -160,9 +167,9 @@ export default {
     },
     getMastersForManager(id) {
       ApplicationsService.getMastersForManager(id)
-      .then((responce) => {
-        this.masters = responce.data
-        console.log(responce.data)
+      .then((response) => {
+        this.masters = response.data
+        console.log(response.data)
         this.TransformMasters()
       })
       .catch((e) => {
@@ -177,6 +184,20 @@ export default {
           master_title: masters[i].last_name + '. Осталось ' + masters[i].free_hours + ' часов, Заказов выполнено: ' + masters[i].num
         })
       }
+    },
+    updateApplication(id){
+      const path = this.$route.path
+      this.$router.push({ path: `${path}/${id}` })
+    },
+    deleteApplication(id){
+      console.log(id)
+      ApplicationsService.delete()
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
     }
   },
   mounted() {

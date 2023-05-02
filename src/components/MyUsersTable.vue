@@ -15,10 +15,10 @@
             {{ item.raw.date_open ? item.raw.date_open.substring(0,10) : 'n/a'}}
         </template>
         <template v-slot:[`item.actions`]= "{ item }">
-            <v-btn flat class="mr-2" size="small" color="accent" @click="editTheme(item.raw.id)">
+            <v-btn flat class="mr-2" size="small" color="accent" @click="updateAct(item.raw.id)">
                     <span dark class="text-h6">&#9998;</span>
                 </v-btn>
-                <v-btn flat color="error" size="small" @click="deleteTheme(item.raw.id)">
+                <v-btn flat color="error" size="small" @click="deleteAct(item.raw.id)">
                     <span dark class="text-h6">&#128465;</span>
                 </v-btn>
         </template>
@@ -47,6 +47,13 @@ export default {
     methods: {
         WirteId(id){
             console.log(id)
+        },
+        updateAct(id){
+            this.$emit('update', id)
+        },
+        deleteAct(id){
+            this.$emit('delete', id)
+            //this.$emit('dataFromChild', 'Hello from child component');
         }
     },
 }

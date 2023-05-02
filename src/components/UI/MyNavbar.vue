@@ -13,7 +13,7 @@
     <v-spacer></v-spacer>
         <my-nav-btn
           @click="$router.push('/search')"
-        >Поиск</my-nav-btn>
+        ><span dark class="text-h6">&#128269;</span></my-nav-btn>
         <my-nav-btn
           @click="$router.push('/profile')"
         >Профиль</my-nav-btn>
