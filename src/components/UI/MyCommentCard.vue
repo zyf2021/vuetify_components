@@ -14,11 +14,12 @@
           ></v-avatar>
         </template>
         <v-list-item-title>{{ comment.email }}</v-list-item-title>
-        <v-list-item-subtitle>18-03-2023</v-list-item-subtitle>
+        <v-list-item-subtitle>Дата создания {{ comment.createdAt.substring(0,10) }}</v-list-item-subtitle>
+        <v-list-item-subtitle>Дата изменения {{ comment.updatedAt.substring(0,10) }}</v-list-item-subtitle>
       </v-list-item>
     </v-card-actions>
     <v-card-text class="text-body-1 align-justify py-2">
-      {{ comment.body }}
+      {{ comment.text }}
     </v-card-text>
 
     
@@ -33,7 +34,13 @@ export default {
         comment:{
             type: Object
         }
-    }
+    },
+    watch: {
+      comment(newData) {
+            newData.createdAt = newData.createdAt.substring(0,10)
+            newData.updatedAt = newData.updatedAt.substring(0,10)
+        }
+    },
 }
 </script>
 

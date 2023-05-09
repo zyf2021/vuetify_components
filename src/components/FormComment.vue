@@ -1,9 +1,9 @@
 <template>
     <div >
          <form @submit.prevent>
-             <h1>Создание поста</h1>
-             <v-textarea placeholder="Название"
-                       v-model = "comment.body"
+             <h3>Оставить комментарий</h3>
+             <v-textarea placeholder="Текст"
+                       v-model = "comment.text"
                        type="text"></v-textarea> 
              <my-btn @click = "addComment">
                  Создать
@@ -18,21 +18,21 @@
      data(){
          return {
              comment: {
-                 id: 0,
-                 body: '',
-                 likes: 4
+                 userId: 0,
+                 newsId: 0,
+                 text: '',
              }
          }
      },
      methods: {
         addComment() {
-             this.comment.id=Date.now()
-             this.comment.likes = 0
+             this.comment.userId= 10
+             this.comment.newsId = this.$route.params.id
              this.$emit('create', this.comment)
              this.comment = {
-                 title: '',
-                 body: '',
-                 likes: '',
+                userId: 0,
+                newsId: 0,
+                text: '',
              }
          }
      }

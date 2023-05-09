@@ -28,16 +28,21 @@
         <v-row no-gutters class="mb-2">
             <v-col cols = "4"></v-col>
             <v-col cols = "4">
-                <my-btn flat>Больше новостей</my-btn>
+                <my-btn 
+                    flat
+                    @click="$router.push('/news')"
+                >
+                    Больше новостей
+                </my-btn>
             </v-col>
             <v-col cols = "4"></v-col>
         </v-row>
-        <v-row class="mb-2">
+        <v-row v-show="false" class="mb-2">
             <v-col class="md-12">
                 <h1>Популярные услуги</h1>
             </v-col>
         </v-row>
-        <v-row no-gutters class="mb-6">
+        <v-row v-show="false" no-gutters class="mb-6">
             <v-col
                 class="pa-0 ma-0"
                 v-for="n in news"
@@ -51,7 +56,7 @@
                 </my-card-news>
             </v-col>
         </v-row>
-        <v-row no-gutters class="mb-2">
+        <v-row v-show="false" no-gutters class="mb-2">
             <v-col cols = "4"></v-col>
             <v-col cols = "4">
                 <my-btn flat>Больше услуг</my-btn>
@@ -62,7 +67,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import NewsService from '@/services/NewsService'
 export default {
     components: {},
     data() {
@@ -76,16 +81,14 @@ export default {
         async fetchNews(){
             try {
                 ///this.isPostLoading = true
-                setTimeout(async ()=>{
-                    const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-                        params: {
-                            _page: this.page,
-                            _limit: this.limit
-                        }
+                    NewsService.getThree()
+                    .then((response)=> {
+                        this.news = response.data
+                        console.log(this.news)
                     })
-                    this.news = response.data
-                }, 1000)
-            } catch(e) {
+                    
+            }
+            catch(e) {
                 alert(e)
             }
         }

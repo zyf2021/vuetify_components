@@ -35,7 +35,7 @@
         Tooltip,
         Legend
     )
-  
+  //import ApplicationsService from '@/services/ApplicationsService'
   export default {
     name: 'LineChart',
     props: {
@@ -44,26 +44,37 @@
         },
         titleCard:{
             type: String
+        },
+        chartData: {
+          type: Object
         }
     },
     components: { Line },
     data() {
       return {
-        chartData: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        /*chartData: {
+          labels: [],
           datasets: [
                 {
-                label: 'Data One',
+                label: 'Количество заявок в месяц',
                 backgroundColor: '#f87979',
-                data: [40, 39, 10, 40, 39, 80, 40]
+                data: []
                 }
             ],
-        },
+        },*/
         chartOptions: {
           responsive: true,
           maintainAspectRatio: false
         },
+        data_chart:[]
       }
+    },
+    methods: {
+    },
+    mounted(){
+    },
+    watch: {
+      
     }
   }
   </script>

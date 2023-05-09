@@ -6,6 +6,16 @@
         </v-col>
     </v-row>
     <v-row>
+        <v-select
+            label="Тема новостей"
+            v-model="select_theme"
+            :items="themes"
+            item-title="name"
+            item-value="id"
+            return-object
+        ></v-select>
+    </v-row>
+    <v-row>
         <v-col
             cols="12" sm="4"
             v-for="n in news"
@@ -20,35 +30,60 @@
 </template>
 
 <script>
-import axios from 'axios'
-
+import NewsService from '@/services/NewsService'
+import ThemesNewsService from '@/services/ThemesNewsService'
 export default {
 
     data() {
         return {
             title:'Title',
             news: [],
-            limit: 21
+            select_theme: {name:'Выбрать тему новости', id:''},
+            themes: [],
         }
     },
     methods: {
-        async fetchNews(){
-            try {
-                ///this.isPostLoading = true
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-                    params: {
-                        _limit: this.limit
-                    }
-                })
+        GetAllNews(){
+            NewsService.getAll()
+            .then((response)=> {
                 this.news = response.data
-                console.log(this.news[1])
-            } catch(e) {
-                alert(e)
-            }
+                console.log(this.news)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        },
+        GetNewsByThemeId(id){
+            NewsService.getNewsByThemeId(id)
+            .then((response)=> {
+                this.news = response.data
+                console.log(this.news)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+        },
+        GetAllThemes(){
+            ThemesNewsService.getAll()
+            .then((response)=> {
+                this.themes = response.data
+                console.log(this.themes)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+
         }
     },
+    watch: {
+        select_theme(newData){
+            this.GetNewsByThemeId(newData.id)
+        }
+    },
+
     mounted() {
-        this.fetchNews()
+        this.GetAllNews()
+        this.GetAllThemes()
     }
 }
 </script>

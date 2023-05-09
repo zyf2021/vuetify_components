@@ -21,12 +21,17 @@
   export default {
     name: 'BarChart',
     components: { Bar },
+    props: {
+      chartData: {
+        type:Object
+      }
+    },
     data() {
       return {
-        chartData: {
+        /*chartData: {
           labels: [ 'January', 'February', 'March' ],
           datasets: [ { data: [40, 20, 12] } ]
-        },
+        },*/
         chartOptions: {
           responsive: true
         }

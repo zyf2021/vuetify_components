@@ -1,6 +1,26 @@
 import http from "../http-common";
 
 class ApplicationsService {
+  getCountStatusApplic() {
+    return http.get(`/applications/count/statuses_applic_1`);
+  }
+  getCountUsers() {
+    return http.get(`/applications/count/users`);
+  }
+  getCountDetails() {
+    return http.get(`/applications/count/details`);
+  }
+  //getCountApplicationsByClasses
+  getCountApplicationsByClasses() {
+    return http.get(`/applications/count/applic/classes`);
+  }
+  getCountApplicationsByMasters() {
+    return http.get(`/applications/count/applic/masters`);
+  }
+  getCountApplicationsByMonth() {
+    return http.get(`/applications/count/applic`);
+  }
+  //
 
   getMastersForManager(id) {
     return http.get(`/applications/managers/${id}`);
