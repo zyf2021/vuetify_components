@@ -1,207 +1,242 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" sm="12" md="8">
-        <v-data-table
-          :headers="headers"
-          :items="desserts"
-          :sort-by="[{ key: 'calories', order: 'asc' }]"
-          class="elevation-1"
-        >
-    <template v-slot:top>
-      <v-toolbar
-        flat
-      >
-        <v-toolbar-title>My CRUD</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
-        >
-          <template v-slot:activator="{ props }">
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="props"
-            >
-              New Item
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue-darken-1"
-                variant="text"
-                @click="close"
+      <v-col cols="12" sm="12" md="12">
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Заказы клиента</span>
+          </v-card-title>
+          <v-data-table
+            :group-by="groupBy"
+            :search="search"
+            :headers="headers"
+            :items="applications"
+            :sort-by="[{ key: 'category', order: 'asc' }]"
+            class="elevation-0"
+          >
+            <template v-slot:top>
+              <v-toolbar
+                flat
               >
-                Cancel
+                <v-toolbar-title>My CRUD</v-toolbar-title>
+                <v-divider
+                  class="mx-4"
+                  inset
+                  vertical
+                ></v-divider>
+                <v-spacer></v-spacer>
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Поиск по полям"
+                  single-line
+                  hide-applications
+                ></v-text-field>
+                
+                <v-dialog
+                  v-model="dialog"
+                  max-width="500px"
+                >
+  
+                  <v-card>
+                    <v-card-title>
+                      <span class="text-h5">{{ formTitle }}</span>
+                    </v-card-title>
+        
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                    <v-col cols="12" sm="6">
+                        <v-text-field
+                            label="Дата открытия"
+                            v-model="editedItem.date_open"
+                            type="date"
+                            mask="YYYY-MM-DD"
+                            disabled
+                        ></v-text-field>
+                        <v-text-field
+                            label="Дата закрытия"
+                            v-model="editedItem.date_close"
+                            type="date"
+                            mask="YYYY-MM-DD"
+                            disabled
+                        ></v-text-field>
+                        <v-text-field
+                            label="Плановая дата закрытия"
+                            v-model="plane_date_close"
+                            type="date"
+                            mask="YYYY-MM-DD"
+                            disabled
+                        ></v-text-field>
+                        <v-card-subtitle>ГАРАНТИЯ</v-card-subtitle>
+                        <v-divider class="mb-4"></v-divider>
+                        <v-row>
+                            <v-col cols="12" sm="6">
+                                <v-text-field
+                                    label = "Дата начала действия гарантии" 
+                                    type="date"
+                                    mask="YYYY-MM-DD"
+                                    disabled
+                                   
+                                >
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field
+                                    label = "Дата окончания действия гарантии" 
+                                    type="date"
+                                    mask="YYYY-MM-DD"
+                                    disabled
+                                    
+                                >
+                                </v-text-field>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" sm="6">
+                                <v-text-field
+                                    label="Длительность"
+                                    disabled
+                                    
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-text-field
+                                    label="Категория"
+                                    disabled
+                                    
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                                label="Тип проблемы"
+                                v-model="editedItem.class"
+                      ></v-text-field>
+                      <v-text-field
+                          label="Статус заявки"
+                          v-model="editedItem.status"
+                      ></v-text-field>
+                      <v-text-field
+                          label="Мастер"
+                          v-model="editedItem.master"
+                      ></v-text-field>
+                      <v-text-field
+                          label="Сложность"
+                          v-model="editedItem.difficult"
+                      ></v-text-field>
+                      <v-text-field
+                          label="Стоимость работы"
+                          v-model="editedItem.base_price"
+                      ></v-text-field>
+                      <v-text-field
+                          label="Стоимость деталей"
+                          v-model="editedItem.detail_price"
+                      ></v-text-field>
+                      <v-text-field
+                          label="Общая сумма"
+                          v-model="editedItem.total_price"
+                      ></v-text-field>
+                      <v-textarea  
+                          label="Комментарий к заказу"
+                          v-model="editedItem.comment"
+                          counter 
+                          :rules="rules" 
+                      >
+                      </v-textarea>
+                      </v-col>
+                    </v-row>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                      <v-btn
+                        color="blue-darken-1"
+                        variant="text"
+                        @click="close"
+                      >
+                        Выход
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                <v-dialog v-model="dialogDelete" max-width="500px">
+                  <v-card>
+                    <v-card-title class="text-h5">Вы уверены?</v-card-title>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</v-btn>
+                      <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm">OK</v-btn>
+                      <v-spacer></v-spacer>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-toolbar>
+            </template>
+            <template v-slot:[`item.date_close`] = "{item}">
+                  {{ item.raw.date_close ? item.raw.date_close.substring(0,10) : 'n/a'}}
+              </template>
+              <template v-slot:[`item.date_open`] = "{item}">
+                  {{ item.raw.date_open ? item.raw.date_open.substring(0,10) : 'n/a'}}
+              </template>
+            <template v-slot:[`item.actions`]="{ item }">
+              <v-btn flat class="mr-2" size="small" color="accent" @click="editItem(item.raw)">
+                  <span dark class="text-h6">&#9998;</span>
               </v-btn>
-              <v-btn
-                color="blue-darken-1"
-                variant="text"
-                @click="save"
-              >
-                Save
+              <v-btn flat color="error" size="small" @click="deleteItem(item.raw)">
+                  <span dark class="text-h6">&#128465;</span>
               </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue-darken-1" variant="text" @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="deleteItemConfirm">OK</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-btn
-        size="small"
-        color="accent"
-        flat
-        class="me-2"
-        @click="editItem(item.raw)"
-      >
-      </v-btn>
-      <v-btn
-        size="small"
-        color="error"
-        flat
-        @click="deleteItem(item.raw)"
-      >
-      </v-btn>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
-  </v-data-table>
+            </template>
+          </v-data-table>
+          <v-card-actions v-if="applications.length > 0">
+              <v-btn @click="deleteAll">
+                Удалить все
+              </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
-      <v-col cols="12" sm="12" md="4">
-        <FormDetailOrderClientVue></FormDetailOrderClientVue>
-      </v-col>
+      
     </v-row>
   </v-container>
 </template>
 
 <script>
-import FormDetailOrderClientVue from '@/components/FormDetailOrderClientVue.vue';
+import ApplicationsService from '@/services/ApplicationsService'
   export default {
-    components: {FormDetailOrderClientVue},
+    components: {},
     data: () => ({
+      search: '',
+      groupBy: [{ key: 'status' }],
       dialog: false,
       dialogDelete: false,
-      headers: [
-        {
-          title: 'Dessert (100g serving)',
-          align: 'start',
-          sortable: false,
-          key: 'name',
-        },
-        { title: 'Calories', key: 'calories' },
-        { title: 'Fat (g)', key: 'fat' },
-        { title: 'Carbs (g)', key: 'carbs' },
-        { title: 'Protein (g)', key: 'protein' },
-        { title: 'Actions', key: 'actions', sortable: false },
-      ],
-      desserts: [],
       editedIndex: -1,
-      editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      },
+      editedItem: {},
+      defaultItem: {},
+      headers: [
+        { title: 'ID', align: 'start', sortable: false, key: 'id'},
+        { title: 'Дата поставки', key: 'date_open' },
+        { title: 'Дата закрытия', key: 'date_close' },
+        { title: 'Имя', key: 'master_last_name' },
+        { title: 'Имя', key: 'status' },
+        { title: 'Имя', key: 'class' },
+        { title: 'Имя', key: 'difficult' },
+        { title: 'Цена', key: 'base_price' },
+        { title: 'Номер заявки', key: 'normative_time' },
+        { title: 'Номер заявки', key: 'detail_price' },
+        { title: 'Категория детали', key: 'total_price' },
+        { title: 'Действия', key: 'actions', sortable: false },
+      ],
+      applications: [],
+      plane_date_close: '',
     }),
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return 'Edit Item'
       },
+      idClient () {
+        return 10
+      }
     },
 
     watch: {
@@ -211,105 +246,61 @@ import FormDetailOrderClientVue from '@/components/FormDetailOrderClientVue.vue'
       dialogDelete (val) {
         val || this.closeDelete()
       },
+      editedItem(newData) {
+        console.log('newData ' + newData.id)
+        newData.date_open = newData.date_open.substring(0,10)
+        if (newData.date_close) {
+          newData.date_close = newData.date_close.substring(0,10)
+        }
+        let pl_d = new Date(newData.date_open)
+        //D.setDate(D.getDate() + 3)
+        console.log(pl_d.setDate(pl_d.getDate()+3))
+        pl_d = new Date(pl_d.setDate(pl_d.getDate() + Math.floor(newData.normative_time / 24) + 1))
+        
+        this.plane_date_close = pl_d.toISOString().substring(0,10)
+      }
     },
 
     created () {
-      this.initialize()
+      this.getAll(this.idClient)
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-          },
-        ]
+      getAll(id){
+        ApplicationsService.getAllForCleintById(id)
+        .then( res => {
+          this.applications = res.data
+          console.log(res.data)
+        })
+        .catch(e => {
+          console.log(e)
+        })
       },
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.applications.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.applications.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.applications.splice(this.editedIndex, 1)
         this.closeDelete()
       },
-
+      deleteAll(){
+        ApplicationsService.deleteAll()
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+        },
       close () {
         this.dialog = false
         this.$nextTick(() => {
@@ -325,15 +316,9 @@ import FormDetailOrderClientVue from '@/components/FormDetailOrderClientVue.vue'
           this.editedIndex = -1
         })
       },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
-        this.close()
-      },
+    },
+    mounted() {
+      //this.getAll(this.idClient)
     },
   }
 </script>

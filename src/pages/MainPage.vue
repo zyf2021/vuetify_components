@@ -2,7 +2,9 @@
     <v-container class="bg-secondary mb-2">
         <v-row class="mb-2">
             <v-col md-12>
-                <my-carousel></my-carousel>
+                <my-carousel
+                    :images="image_name"
+                ></my-carousel>
             </v-col>
         </v-row>
         <v-row class="mb-2">
@@ -68,6 +70,7 @@
 
 <script>
 import NewsService from '@/services/NewsService'
+import FileService from '@/services/FileService'
 export default {
     components: {},
     data() {
@@ -75,9 +78,18 @@ export default {
             page: 3,
             limit: 3,
             news:[],
+            image_name: [],
         }
     },
     methods: {
+        getImagesName(){
+            FileService.getListFilesForMain()
+            .then(res => {
+                this.image_name = res.data
+                console.log("images", this.image_name)
+            })
+        },
+
         async fetchNews(){
             try {
                 ///this.isPostLoading = true
@@ -95,6 +107,7 @@ export default {
     },
     mounted(){
         this.fetchNews()
+        this.getImagesName()
     }
 }
 </script>

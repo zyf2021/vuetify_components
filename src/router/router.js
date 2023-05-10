@@ -8,11 +8,16 @@ import NewsPageId from "@/pages/NewsPageId.vue"
 import OrderClientPage from '@/pages/OrderClientPage';
 import OrderManagerPage from '@/pages/OrderManagerPage';
 import OrderMasterPage from '@/pages/OrderMasterPage';
-import SparePage from '@/pages/SparePage';
 import ProfileUserPage from '@/pages/ProfileUserPage';
 import ThemesNewsAdmin from '@/pages/ThemesNewsAdmin';
 import ManagerViewsUsers from '@/pages/ManagerViewsUsers';
 import UpdateApplicationManager from '@/pages/UpdateApplicationManager';
+import ApplicationsAdmin from '@/pages/ApplicationsAdmin';
+import CommentsAdmin from '@/pages/CommentsAdmin';
+import DetailsAdmin from '@/pages/DetailsAdmin';
+import NewsAdmin from '@/pages/NewsAdmin';
+import UploadAdmin from '@/pages/UploadAdmin';
+import UsersAdmin from '@/pages/UsersAdmin';
 
 
 const routes = [
@@ -51,13 +56,9 @@ const routes = [
         component: UpdateApplicationManager
     },
     {
-        path: '/order/master/:id',
+        path: '/order/master',
         component: OrderMasterPage
-    },    
-    {
-        path: '/spare',
-        component: SparePage
-    },  
+    },     
     {
         path: '/profile',
         component: ProfileUserPage
@@ -69,6 +70,30 @@ const routes = [
     {
         path: '/manager/users',
         component: ManagerViewsUsers
+    },
+    {
+        path: '/admin/news',
+        component: NewsAdmin
+    },
+    {
+        path: '/admin/comments',
+        component: CommentsAdmin
+    },
+    {
+        path: '/admin/details',
+        component: DetailsAdmin
+    },
+    {
+        path: '/admin/applications',
+        component: ApplicationsAdmin
+    },
+    {
+        path: '/admin/users',
+        component: UsersAdmin
+    },
+    {
+        path: '/admin/uploads',
+        component: UploadAdmin
     },
 ]
 

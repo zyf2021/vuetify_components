@@ -1,7 +1,7 @@
 <template>
   <v-container class="bg-secondary">
     <v-row>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="3">
         <v-card class="pa-4" flat>
           <form @submit.prevent="createApplication">
             <v-card-title class="text-h5">
@@ -48,7 +48,7 @@
           </form>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="8">
+      <v-col cols="12" sm="9">
         <MyUserTable
           :header="header_table"
           :headers="headers"

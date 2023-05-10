@@ -6,19 +6,11 @@
         show-arrows="hover"
     >
         <v-carousel-item
-        v-for="(slide, i) in slides"
+        v-for="(item,i) in images"
         :key="i"
+        :src="item.url"
+        cover
         >
-        <v-sheet
-            :color="colors[i]"
-            height="100%"
-        >
-            <div class="d-flex fill-height justify-center align-center">
-            <div class="text-h2">
-                {{ slide }} Slide
-            </div>
-            </div>
-        </v-sheet>
         </v-carousel-item>
     </v-carousel>
 </template>
@@ -26,22 +18,14 @@
 <script>
 export default {
     name:'my-carousel',
+    props: {
+      images:{
+        type:Array
+      }
+    },
     data () {
       return {
-        colors: [
-          'primary',
-          'warning',
-          'error',
-          'warning',
-          'success',
-        ],
-        slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-        ],
+
       }
     },
   }

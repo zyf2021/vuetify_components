@@ -21,7 +21,12 @@ class ApplicationsService {
     return http.get(`/applications/count/applic`);
   }
   //
-
+  getAllForCleintById(id){
+    return http.get(`/applications/clients/${id}`);
+  }
+  getAllForMasterById(id){
+    return http.get(`/applications/master/${id}`);
+  }
   getMastersForManager(id) {
     return http.get(`/applications/managers/${id}`);
   }

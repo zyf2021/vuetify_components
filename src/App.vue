@@ -22,8 +22,8 @@ export default {
             {title: 'ГЛАВНАЯ', route:'/'},
             {title: 'НОВОСТИ', route:'/news'},
             {title: 'Заказы Клиента', route:'/order/client'},
-            {title: 'Заказы Менеджера', route:'/order/manager/:id'},
-            {title: 'Заказы Мастера', route:'/order/master/:id'},
+            {title: 'Заказы Менеджера', route:'/order/manager'},
+            {title: 'Заказы Мастера', route:'/order/master'},
             {title: 'Админпанель', route:'/admin'},
             {title: 'Запчасти', route:'/spare'},
             {title: 'О НАС', route:'/about'}
