@@ -1,6 +1,7 @@
 import MyNavbar from '@/components/UI/MyNavbar'
 import MyCarousel from '@/components/UI/MyCarousel'
 import MyCardNews from '@/components/UI/MyCardNews'
+import MyCardServices from '@/components/UI/MyCardServices'
 import MyButton from '@/components/UI/MyButton'
 import MyNavbarButtton from '@/components/UI/MyNavbarButtton'
 import MyCommentCard from '@/components/UI/MyCommentCard'
@@ -15,5 +16,6 @@ export default [
     MyNavbarButtton,
     MyCommentCard,
     MyNewsIdCard,
-    MyDialog
+    MyDialog,
+    MyCardServices
 ]

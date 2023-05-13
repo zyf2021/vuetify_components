@@ -1,29 +1,44 @@
 <template>
 <v-container>
     <v-row>
-            <v-col cols = "12" sm = "2" md = "4">
-                <v-card class="ma-2" flat>
-                        <v-img
-                            src=""
-                            class="white--text align-end"
-                            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                            height="300px"
-                        >
-                        </v-img>
-                        <v-card-actions >
-                            <v-file-input
-                                class="mr-4"
-                                accept="image/png, image/jpeg, image/bmp"
-                                placeholder="Pick an avatar"
-                                label="Avatar"
-                            ></v-file-input>
-                        </v-card-actions>
+            <v-col cols = "12" sm = "12" md = "4">
+                <v-card 
+                    class="ma-2" 
+                    flat
+                    height="100%"
+                >
+                    <v-img v-if="true"
+                        :src="avatar_url"
+                        class="white--text align-end"
+                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                        height="85%"
+                        width="100%"
+                    >
+                    </v-img>
+                    
+                    <v-card-actions class="d-flex align-content-start">
+                        <v-file-input
+                            class="ma-2"
+                            show-size="1000"
+                            label="ЗАГРУЗКА АВАТАРА"
+                            @change="selectFile"
+                            variant="outlined"
+                        ></v-file-input>
+                        <v-btn 
+                            class="ma-4 align-self-start"
+                            color="accent"
+                            variant="flat"
+                            theme="dark"
+                            @click="uploadImage"
+                        >Загрузить
+                        </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-col>
-            <v-col cols = "12" sm = "10" md = "8">
+            <v-col cols = "12" sm = "12" md = "8">
                 <v-card class="ma-2" flat>
                     <v-card-title>
-                        <strong> Profile</strong>
+                        <strong>Профиль пользователя</strong>
                         </v-card-title>
                         <v-card-subtitle><p class="text-justify">Дата последнего изменения</p></v-card-subtitle>
                         <v-card-text>
@@ -37,15 +52,9 @@
                                 <v-text-field label = "Отчество" v-model="user.middle_name" :value="user.middle_name"></v-text-field>    
                             </v-row>
                             <v-row>
-                                <v-select 
-                                    label = "Роль" 
-                                    disabled 
-                                    v-model="user.roleId" 
-                                    :items="roles" 
-                                    item-value="id" 
-                                    item-text="name"
-                                >
-                                </v-select>   
+                                <v-text-field >
+                                    {{ selected_role.name }}
+                                </v-text-field> 
                             </v-row>
                             <v-row>
                                 <v-text-field
@@ -58,25 +67,35 @@
                                 ></v-text-field>
                             </v-row>
                             <v-row> 
-                                <v-select label = "Пол"  :items="gender" item-value="id" item-text="name"></v-select>  
+
+                                <v-select v-if="false">
+                                    label="Пол"
+                                    v-model="selected_gender"
+                                    :items="gender"
+                                    item-title="name"
+                                    item-value="id"
+                                    return-object
+                                </v-select>
+                                <v-text-field>Мужской</v-text-field>
                             </v-row>
                             <v-row>
                                 <v-text-field label = "Email" v-model="user.email" :value="user.email"></v-text-field>    
-                            </v-row>                              
+                            </v-row>  
+                            <v-row>
+                                <v-text-field 
+                                    v-model="user.password" 
+                                    :value="user.password"
+                                    label = "Пароль" 
+                                    :rules="[rules.required, rules.min]"
+                                    :type="'password'"
+                                    name="input-10-1"
+                                    hint="Не 4 символов"
+                                    counter
+                                    width = "50%"
+                                ></v-text-field>
+                            </v-row>                            
                             <v-divider></v-divider>
-                        <v-row>
-                            <v-text-field 
-                                v-model="user.password" 
-                                :value="user.password"
-                                label = "Пароль" 
-                                :rules="[rules.required, rules.min]"
-                                :type="'password'"
-                                name="input-10-1"
-                                hint="Не 4 символов"
-                                counter
-                                width = "50%"
-                            ></v-text-field>
-                        </v-row>
+                        
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -103,6 +122,7 @@
 
 <script>
 import UsersService from '@/services/UsersServices';
+import FileService from '@/services/FileService';
 export default {
     name: 'ProfileUserPage',
     components: { },
@@ -112,20 +132,20 @@ export default {
         }*/},
     data() {
         return {
-            currentUserID: 4,
+            currentUserID: 7,
             check:false,
             menu: false,
             isAdmin:false,
             collections: [],
-            gender: [
-                {id:"male", name: "мужской"},
-                {id:"female", name:"женский"},
-            ],
+            gender: [],
             roles: [
                 {id:1, name: "Администратор"},
-                {id:2, name:"Библиотекарь"},
-                {id:3, name: "Читатель"},
+                {id:2, name:"Менеджер"},
+                {id:3, name: "Мастер"},
+                {id:4, name: "Клиент"},
             ],
+            selected_role: {id:4, name: "Клиент"},
+            selected_gender: {},
             message: '',
             show1: false,
             user: {
@@ -146,16 +166,54 @@ export default {
             emailMatch: () => (`The email and password you entered don't match`),
             avatar: value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
             },
+            currentFile: undefined,
+            avatar_url: undefined,
         }
     },
-    methods: {
+    methods:{
+            createGenders(){
+                this.gender = [
+                    {id:"m", name: "мужской"},
+                    {id:"f", name:"женский"},
+                ]
+                console.log(this.gender)
+            },
+            selectFile(file) {
+                //this.progress = 0;
+                this.currentFile = file;
+                //console.log(this.currentFile)
+            },
+            uploadImage(){
+                if (!this.currentFile) {
+                    console.log("Выберите файл!")
+                    return;
+                }
+                console.log(this.currentFile.target.files[0])
+                FileService.uploadUserAvatar(this.currentFile.target.files[0], this.currentUserID)
+                .then(res => {
+                    console.log(res.data)
+                    this.currentFile = undefined
+                })
+                .catch(e => {
+                    console.log(e)
+                    this.currentFile = undefined
+                })
+            },
+
             getUserById(id){
                 UsersService.get(id)
                 .then (res => {
                     this.user = res.data;
                     if (this.user.roleId === 1) 
                         this.isAdmin = true;
-                    console.log(res.data);
+                    
+                    console.log(this.user);
+                    if (this.user.avatar_url){
+                        this.avatar_url = this.user.avatar_url
+                    }
+                    else {
+                        this.avatar_url = "http://localhost:3000/api/files/avatars/empty.jpg"
+                    }
                 })
                 .catch(e => {
                     console.log(e);
@@ -182,11 +240,13 @@ export default {
     watch: {
         menu (val) {
             val && setTimeout(() => (this.activePicker = 'YEAR'))
-        }
+        },
     },
     mounted() {
         console.log(this.currentUserID)
+        this.createGenders()
         this.getUserById(this.currentUserID); //заменить потом на computed
+        
     }
 }
 </script>

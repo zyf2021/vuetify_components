@@ -18,14 +18,8 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title>My CRUD</v-toolbar-title>
-                <v-divider
-                  class="mx-4"
-                  inset
-                  vertical
-                ></v-divider>
-                <v-spacer></v-spacer>
                 <v-text-field
+                  class="mt-6 mx-10 align-self-center"
                   v-model="search"
                   append-icon="mdi-magnify"
                   label="Поиск по полям"
@@ -220,10 +214,6 @@ import ApplicationsService from '@/services/ApplicationsService'
         { title: 'Имя', key: 'master_last_name' },
         { title: 'Имя', key: 'status' },
         { title: 'Имя', key: 'class' },
-        { title: 'Имя', key: 'difficult' },
-        { title: 'Цена', key: 'base_price' },
-        { title: 'Номер заявки', key: 'normative_time' },
-        { title: 'Номер заявки', key: 'detail_price' },
         { title: 'Категория детали', key: 'total_price' },
         { title: 'Действия', key: 'actions', sortable: false },
       ],
